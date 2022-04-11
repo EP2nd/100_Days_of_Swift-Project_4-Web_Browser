@@ -5,7 +5,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "last.fm"]
+    var websites = ["apple.com", "hackingwithswift.com"]
     
     override func loadView() {
         webView = WKWebView()
@@ -28,8 +28,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        let back = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
+        let forward = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
         
-        toolbarItems = [progressButton, spacer, refresh]
+        toolbarItems = [progressButton, spacer, back, forward, refresh]
         navigationController?.isToolbarHidden = false
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -60,6 +62,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
                     return
                 }
             }
+            let alert = UIAlertController(title: "Error", message: "Sorry, the URL you're trying to visit is prohibited.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction (title: "OK", style: .default))
+            present(alert, animated: true)
         }
         decisionHandler(.cancel)
     }
