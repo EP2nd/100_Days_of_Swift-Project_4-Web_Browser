@@ -5,7 +5,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "hackingwithswift.com"]
+    var websiteToLoad: String?
     
     override func loadView() {
         webView = WKWebView()
@@ -16,11 +16,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "https://" + websites[0])!
+        let url = URL(string: "https://" + websiteToLoad!)!
         webView.load(URLRequest(url:url))
         webView.allowsBackForwardNavigationGestures = true
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
         
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
@@ -56,26 +54,14 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let url = navigationAction.request.url
         
         if let host = url?.host {
-            for website in websites {
-                if host.contains(website) {
+                if host.contains(websiteToLoad!) {
                     decisionHandler(.allow)
                     return
                 }
-            }
             let alert = UIAlertController(title: "Error", message: "Sorry, the URL you're trying to visit is prohibited.", preferredStyle: .alert)
             alert.addAction(UIAlertAction (title: "OK", style: .default))
             present(alert, animated: true)
         }
         decisionHandler(.cancel)
-    }
-    
-    @objc func openTapped() {
-        let alertController = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
-        for website in websites {
-            alertController.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
-        }
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-        present(alertController, animated: true)
     }
 }
