@@ -1,3 +1,10 @@
+//
+//  ViewController.swift
+//  Project4
+//
+//  Created by Edwin Przeźwiecki Jr. on 22/03/2022.
+//
+
 import UIKit
 import WebKit
 
@@ -17,15 +24,19 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         
         let url = URL(string: "https://" + websiteToLoad!)!
+        
         webView.load(URLRequest(url:url))
         webView.allowsBackForwardNavigationGestures = true
         
         progressView = UIProgressView(progressViewStyle: .default)
+        
         progressView.sizeToFit()
+        
         let progressButton = UIBarButtonItem(customView: progressView)
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        /// Challenge 2:
         let back = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
         let forward = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
         
@@ -43,6 +54,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     func openPage(action: UIAlertAction) {
         let url = URL(string: "https://" + action.title!)!
+        
         webView.load(URLRequest(url: url))
     }
     
@@ -51,6 +63,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
         let url = navigationAction.request.url
         
         if let host = url?.host {
@@ -58,6 +71,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
                     decisionHandler(.allow)
                     return
                 }
+            /// Challenge 1:
             let alert = UIAlertController(title: "Error", message: "Sorry, the URL you're trying to visit is prohibited.", preferredStyle: .alert)
             alert.addAction(UIAlertAction (title: "OK", style: .default))
             present(alert, animated: true)

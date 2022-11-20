@@ -59,8 +59,8 @@
 				B807BA5227EA66A80043CFC4 /* AppDelegate.swift */,
 				B807BA5427EA66A80043CFC4 /* SceneDelegate.swift */,
 				B807BA5627EA66A80043CFC4 /* ViewController.swift */,
-				B807BA5827EA66A80043CFC4 /* Main.storyboard */,
 				B8F188A22805D60200BBD6FB /* TableViewController.swift */,
+				B807BA5827EA66A80043CFC4 /* Main.storyboard */,
 				B807BA5B27EA66A90043CFC4 /* Assets.xcassets */,
 				B807BA6027EA66A90043CFC4 /* Info.plist */,
 			);
