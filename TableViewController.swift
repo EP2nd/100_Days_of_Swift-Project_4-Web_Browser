@@ -10,8 +10,9 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-    
-    var websites = ["apple.com", "hackingwithswift.com"]
+    /// Project 4, bonus challenge:
+//  var websites = ["apple.com", "hackingwithswift.com"]
+    var websites = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,13 @@ class TableViewController: UITableViewController {
         title = "Web Browser"
         
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        /// Project 4, bonus challenge:
+        if let websitesURL = Bundle.main.url(forResource: "websites", withExtension: "txt") {
+            if let listOfWebsites = try? String(contentsOf: websitesURL) {
+                websites = listOfWebsites.components(separatedBy: "\n").dropLast()
+            }
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

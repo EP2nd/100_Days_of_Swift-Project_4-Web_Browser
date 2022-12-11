@@ -29,7 +29,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.allowsBackForwardNavigationGestures = true
         
         progressView = UIProgressView(progressViewStyle: .default)
-        
         progressView.sizeToFit()
         
         let progressButton = UIBarButtonItem(customView: progressView)
@@ -52,11 +51,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    func openPage(action: UIAlertAction) {
+    /* func openPage(action: UIAlertAction) {
         let url = URL(string: "https://" + action.title!)!
         
         webView.load(URLRequest(url: url))
-    }
+    } */
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
